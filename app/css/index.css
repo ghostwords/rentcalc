@@ -1,0 +1,67 @@
+body {
+	color: #444;
+	font: normal 20px 'Helvetica Neue', 'Helvetica', sans-serif;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 500px;
+}
+
+h1 {
+	font-size: 25px;
+}
+
+hr {
+	background-color: #ccc;
+	border: 0;
+	height: 1px;
+	margin: 20px 0;
+}
+
+input {
+	border: 2px solid #ccc;
+	font: normal 20px 'Helvetica Neue', 'Helvetica', sans-serif;
+	padding: 5px;
+	text-align: right;
+	width: 100px;
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+table {
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	margin: 30px 0 40px;
+}
+
+caption {
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+th {
+	background-color: #eee;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	padding: 5px 10px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+td {
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.min-total {
+	background-color: lime;
+}
+
+.max-total {
+	background-color: pink;
+}

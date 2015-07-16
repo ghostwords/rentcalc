@@ -1,7 +1,7 @@
 {
   "name": "NYCRentCalculator",
-  "version": "0.1.0",
-  "description": "NYC Rent Guidelines Board Apartment Lease Renewal Calculator",
+  "version": "0.2.0",
+  "description": "NYC Rent-Stabilized Apartment Lease Renewal Calculator",
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production browserify src/index.jsx -o app/build/bundle.js -t babelify -t envify -g uglifyify",

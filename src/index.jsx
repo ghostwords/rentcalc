@@ -34,13 +34,19 @@ var RGB_DATA = {
 var App = React.createClass({
 	getInitialState: function () {
 		return {
-			rent: '2000'
+			rent: '2000.00'
 		};
 	},
 
 	handleChange: function (event) {
 		this.setState({
 			[event.target.name]: event.target.value
+		});
+	},
+
+	handleButton: function () {
+		this.setState({
+			'rent': document.getElementById('rent').value
 		});
 	},
 
@@ -72,25 +78,14 @@ var App = React.createClass({
 			totals_classes = {
 				[totals_min]: 'min-total',
 				[totals_max]: 'max-total'
-			},
-			totals_rows = [];
-
-		totals.forEach(function (total, i) {
-			totals_rows.push(
-				<td key={i}
-					className={totals_classes.hasOwnProperty(total) &&
-					totals_classes[total]}>${number_format(total)}</td>
-			);
-		}, this);
+			};
 
 		return (
 			<div>
-				<h1>
-					2015 NYC <a href="http://www.nycrgb.org/">Rent Guidelines Board</a>
-					<br />Apartment Lease Renewal Calculator
-				</h1>
-				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal on September 1st, this calculator can help. See <a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt">here</a> and <a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/">here</a> for more information.
+				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
+				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal on September 1st, this calculator can help pick the lease duration.
 				<hr />
+
 				<label htmlFor="rent">Enter your current rent:</label>
 				$ <input
 					type="text"
@@ -98,50 +93,104 @@ var App = React.createClass({
 					name="rent"
 					value={this.state.rent}
 					onChange={this.handleChange}
-					autoComplete="off" /> per month
+					autoComplete="off" /> / mo
+
+				<input
+					type="button"
+					value="Update"
+					onClick={this.handleButton}
+					style={{
+						float: "right"
+					}}/>
 
 				<hr />
 
 				<table>
-					<caption>Your totals:</caption>
-					<tr>
-						<th style={{backgroundColor: '#fff'}}></th>
-						<th>1y, then 1y</th>
-						<th>1y, then 2y</th>
-						<th>2y lease</th>
-					</tr>
+					<caption>One year renewal followed by another one year renewal:</caption>
 					<tr>
 						<th scope="row">first year</th>
-						<td>${number_format(this_year_one * 12)}</td>
-						<td>${number_format(this_year_one * 12)}</td>
-						<td>${number_format(this_year_two * 12)}</td>
+						<td>
+							${number_format(this_year_one * 12)}
+							<div className="monthly-rent">${number_format(this_year_one)} / mo</div>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">next year</th>
-						<td>${number_format(next_year_one * 12)}</td>
-						<td>${number_format(next_year_two * 12)}</td>
-						<td>${number_format(this_year_two * 12)}</td>
+						<td>
+							${number_format(next_year_one * 12)}
+							<div className="monthly-rent">${number_format(next_year_one)} / mo</div>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">total</th>
-						{totals_rows}
+						<td className={totals_classes.hasOwnProperty(totals[0]) && totals_classes[totals[0]]}>
+							${number_format(totals[0])}
+							<div className="monthly-rent">${number_format(totals[0] / 24)} / mo</div>
+						</td>
 					</tr>
 				</table>
 
-				Your new rent will be
-				${number_format(this_year_one)} per month
-				if you renew for one year, and
-				${number_format(this_year_two)} per month
-				if you renew for two.
-				<br />
-				<br />
-				If you renew for one year,
-				your choices next year are between
-				${number_format(next_year_one)} for one year
-				and ${number_format(next_year_two)} for two years.
-				<br />
-				<br />
+				<table>
+					<caption>One year followed by a two year:</caption>
+					<tr>
+						<th scope="row">first year</th>
+						<td>
+							${number_format(this_year_one * 12)}
+							<div className="monthly-rent">${number_format(this_year_one)} / mo</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">next year</th>
+						<td>
+							${number_format(next_year_two * 12)}
+							<div className="monthly-rent">${number_format(next_year_two)} / mo</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">total</th>
+						<td className={totals_classes.hasOwnProperty(totals[1]) && totals_classes[totals[1]]}>
+							${number_format(totals[1])}
+							<div className="monthly-rent">${number_format(totals[1] / 24)} / mo</div>
+						</td>
+					</tr>
+				</table>
+
+				<table>
+					<caption>Two year renewal:</caption>
+					<tr>
+						<th scope="row">first year</th>
+						<td>
+							${number_format(this_year_two * 12)}
+							<div className="monthly-rent">${number_format(this_year_two)} / mo</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">next year</th>
+						<td>
+							${number_format(this_year_two * 12)}
+							<div className="monthly-rent">${number_format(this_year_two)} / mo</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">total</th>
+						<td className={totals_classes.hasOwnProperty(totals[2]) && totals_classes[totals[2]]}>
+							${number_format(totals[2])}
+							<div className="monthly-rent">${number_format(totals[2] / 24)} / mo</div>
+						</td>
+					</tr>
+				</table>
+
 				You will save ${number_format(totals_max - totals_min)} over two years by going with the cheapest option.
+
+				<hr />
+
+				<h2>Resources</h2>
+				<ul>
+					<li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt">Lease Options in a Rent-Stabilized Apt</a></li>
+					<li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
+					<li><a href="https://amirentstabilized.com/">Am I Rent-Stabilized?</a></li>
+					<li><a href="http://www.nycrgb.org/">NYC Rent Guidelines Board</a></li>
+				</ul>
 			</div>
 		);
 	}

@@ -88,7 +88,8 @@ var App = React.createClass({
 
 				<label htmlFor="rent">Enter your current rent:</label>
 				$ <input
-					type="text"
+					type="number"
+					step="0.01"
 					id="rent"
 					name="rent"
 					value={this.state.rent}
@@ -97,6 +98,7 @@ var App = React.createClass({
 
 				<input
 					type="button"
+					id ="update-button"
 					value="Update"
 					onClick={this.handleButton}
 					style={{

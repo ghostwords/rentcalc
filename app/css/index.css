@@ -29,10 +29,16 @@ input {
 	padding: 5px;
 }
 
-input[type=text] {
+input[type=number] {
 	border: 2px solid #ccc;
 	text-align: right;
 	width: 80px;
+	-moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
 }
 
 label {
@@ -80,4 +86,10 @@ td {
 .monthly-rent {
 	color: gray;
 	font-size: small;
+}
+
+@media only screen and (min-width: 481px) {
+	#update-button {
+		display: none !important;
+	}
 }

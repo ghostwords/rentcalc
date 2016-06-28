@@ -28,7 +28,11 @@ var RGB_DATA = {
 	2016: {
 		'one': 0,
 		'two': 2
-	}
+	},
+	2017: {
+		'one': 0,
+		'two': 2
+	},
 };
 
 var App = React.createClass({

@@ -59,7 +59,7 @@ var App = React.createClass({
       useProposedRates: true
     });
     setTimeout(function () {
-      var rate_input = document.getElementById("rent");
+      var rate_input = document.getElementById("rent-div");
       if (rate_input) {
         window.scroll(0, window.pageYOffset + rate_input.getBoundingClientRect().top);
       }
@@ -163,7 +163,7 @@ var App = React.createClass({
 
     var rent_input;
     if (totals_max - totals_min || this.state.showDetails) {
-      rent_input = (<div>
+      rent_input = (<div id="rent-div">
         <label htmlFor="rent">Enter your current rent:</label>
         $ <input
           type="number"

@@ -1,7 +1,7 @@
 /*!
  * NYCRentCalculator
  *
- * Copyright 2015 ghostwords.
+ * Copyright 2017 ghostwords.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,7 +30,8 @@ var App = React.createClass({
       rateOne: null,
       rateTwo: null,
       rent: '2000.00',
-      showDetails: false
+      showDetails: false,
+      useProposedRates: false,
     };
   },
 
@@ -51,6 +52,18 @@ var App = React.createClass({
       showDetails: true
     });
     return false;
+  },
+
+  useProposedRates: function () {
+    this.setState({
+      useProposedRates: true
+    });
+    setTimeout(function () {
+      var rate_input = document.getElementById("rent");
+      if (rate_input) {
+        window.scroll(0, window.pageYOffset + rate_input.getBoundingClientRect().top);
+      }
+    }, 100);
   },
 
   render: function () {
@@ -82,7 +95,7 @@ var App = React.createClass({
       </div>);
     }
 
-    if (!RGB_DATA.hasOwnProperty(year + 1) && (this.state.rateOne === null || this.state.rateTwo === null)) {
+    if (!RGB_DATA.hasOwnProperty(year + 1) && !this.state.useProposedRates) {
       return (<div>
         {header}
         <div className="notice">
@@ -112,6 +125,13 @@ var App = React.createClass({
               value={this.state.rateTwo}
               onChange={this.handleChange}
               autoComplete="off" />%
+          </p>
+          <p>
+            <input
+              type="button"
+              id="use-proposed-rates-button"
+              value="Use proposed rates"
+              onClick={this.useProposedRates} />
           </p>
         </div>
         {footer}

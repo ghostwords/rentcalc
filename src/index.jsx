@@ -54,46 +54,67 @@ var App = React.createClass({
 	},
 
 	render: function () {
+		var header = (<div>
+			<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
+			If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
+		</div>);
+
+		var footer = (<div>
+			<h2>Resources</h2>
+			<ul>
+				<li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank">Lease Options in a Rent-Stabilized Apt</a></li>
+				<li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
+				<li><a href="https://amirentstabilized.com/" target="_blank">Am I Rent-Stabilized?</a></li>
+				<li><a href="http://www.nycrgb.org/" target="_blank">NYC Rent Guidelines Board</a></li>
+			</ul>
+		</div>);
+
 		var year = (new Date()).getFullYear();
 
 		if (!RGB_DATA.hasOwnProperty(year)) {
-			return (
+			return (<div>
+				{header}
 				<div className="notice">
 					<p>Oops, we don't have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
 					<p>Looks like this app is way out of date.</p>
 				</div>
-			);
+				{footer}
+			</div>);
 		}
 
 		if (!RGB_DATA.hasOwnProperty(year + 1) && (this.state.rateOne === null || this.state.rateTwo === null)) {
-			return (<div className="notice">
-				<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank">website</a> for proposed rates.</p>
-				<p>
-					<label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
-					<input
-						type="number"
-						min="0"
-						max="100"
-						step="0.01"
-						id="rateOne"
-						name="rateOne"
-						value={this.state.rateOne}
-						onChange={this.handleChange}
-						autoComplete="off" />%
-				</p>
-				<p>
-					<label htmlFor="rateTwo">Two-year renewal lease adjustment for {year + 1}:</label>
-					<input
-						type="number"
-						min="0"
-						max="100"
-						step="0.01"
-						id="rateTwo"
-						name="rateTwo"
-						value={this.state.rateTwo}
-						onChange={this.handleChange}
-						autoComplete="off" />%
-				</p>
+			return (<div>
+				{header}
+				<div className="notice">
+					<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank">website</a> for proposed rates.</p>
+					<p>
+						<label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
+						<input
+							type="number"
+							min="0"
+							max="100"
+							step="0.01"
+							id="rateOne"
+							name="rateOne"
+							value={this.state.rateOne}
+							onChange={this.handleChange}
+							autoComplete="off" />%
+					</p>
+					<p>
+						<label htmlFor="rateTwo">Two-year renewal lease adjustment for {year + 1}:</label>
+						<input
+							type="number"
+							min="0"
+							max="100"
+							step="0.01"
+							id="rateTwo"
+							name="rateTwo"
+							value={this.state.rateTwo}
+							onChange={this.handleChange}
+							autoComplete="off" />%
+					</p>
+				</div>
+				{footer}
 			</div>);
 		}
 
@@ -255,8 +276,8 @@ var App = React.createClass({
 
 		return (
 			<div>
-				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
-				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
+				{header}
+
 				<hr />
 
 				{rent_input}
@@ -267,13 +288,7 @@ var App = React.createClass({
 
 				<hr />
 
-				<h2>Resources</h2>
-				<ul>
-					<li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank">Lease Options in a Rent-Stabilized Apt</a></li>
-					<li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
-					<li><a href="https://amirentstabilized.com/" target="_blank">Am I Rent-Stabilized?</a></li>
-					<li><a href="http://www.nycrgb.org/" target="_blank">NYC Rent Guidelines Board</a></li>
-				</ul>
+				{footer}
 			</div>
 		);
 	}

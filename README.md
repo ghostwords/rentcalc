@@ -4,12 +4,6 @@ If you live in a [rent-stabilized apartment in New York City](https://amirentsta
 
 You can see the calculator [here](http://ghostwords.github.io/NYCRentCalculator/).
 
-## Things that could be done
-
-- Test on mobile.
-- Optimize for mobile.
-- Is this the best way to present the data? Probably not.
-- Make it work for more people (by letting them guess next year's guidelines?)
 
 ## Code license
 

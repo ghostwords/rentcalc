@@ -29,7 +29,8 @@ var App = React.createClass({
 		return {
 			rateOne: null,
 			rateTwo: null,
-			rent: '2000.00'
+			rent: '2000.00',
+			showDetails: false
 		};
 	},
 
@@ -45,10 +46,9 @@ var App = React.createClass({
 		});
 	},
 
-	showRateInputs: function () {
+	showDetails: function () {
 		this.setState({
-			rateOne: 0,
-			rateTwo: 0
+			showDetails: true
 		});
 		return false;
 	},
@@ -75,7 +75,7 @@ var App = React.createClass({
 						type="number"
 						min="0"
 						max="100"
-						step="0.1"
+						step="0.01"
 						id="rateOne"
 						name="rateOne"
 						value={this.state.rateOne}
@@ -88,7 +88,7 @@ var App = React.createClass({
 						type="number"
 						min="0"
 						max="100"
-						step="0.1"
+						step="0.01"
 						id="rateTwo"
 						name="rateTwo"
 						value={this.state.rateTwo}
@@ -125,14 +125,9 @@ var App = React.createClass({
 				[totals_max]: 'max-total'
 			};
 
-		return (
-			<div>
-				{provisional_msg}
-
-				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
-				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal on September 1st, this calculator can help pick the lease duration.
-				<hr />
-
+		var rent_input;
+		if (totals_max - totals_min || this.state.showDetails) {
+			rent_input = (<div>
 				<label htmlFor="rent">Enter your current rent:</label>
 				$ <input
 					type="number"
@@ -153,7 +148,39 @@ var App = React.createClass({
 					}}/>
 
 				<hr />
+			</div>);
+		}
 
+		var summary;
+		if (totals_max - totals_min) {
+			var options = [
+				<span><b>one year</b> renewal followed by another <b>one year</b> renewal</span>,
+				<span><b>one year</b> renewal followed by a <b>two year</b> renewal</span>,
+				<span><b>two year</b> renewal</span>,
+			];
+			var cheapest_option = options.find(function (el, i) {
+				return totals_min == totals[i];
+			});
+
+			summary = (
+				<p>
+					You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with a {cheapest_option}.
+				</p>
+			);
+		} else if (!this.state.showDetails) {
+			summary = (
+				<p>
+					All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn't matter which one you pick.
+				</p>
+			);
+		}
+
+		var details = (
+			<p><a href="/" onClick={this.showDetails}>Show me the details.</a></p>
+		);
+
+		if (this.state.showDetails) {
+			details = (<div>
 				<table>
 					<caption>One year renewal followed by another one year renewal:</caption>
 					<tr>
@@ -228,8 +255,22 @@ var App = React.createClass({
 						</td>
 					</tr>
 				</table>
+			</div>);
+		}
 
-				You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with the cheapest option.
+		return (
+			<div>
+				{provisional_msg}
+
+				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
+				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
+				<hr />
+
+				{rent_input}
+
+				{summary}
+
+				{details}
 
 				<hr />
 

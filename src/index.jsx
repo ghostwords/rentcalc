@@ -68,7 +68,7 @@ var App = React.createClass({
 
 		if (!RGB_DATA.hasOwnProperty(year + 1)) {
 			var provisional_msg = (<div className="notice">
-				<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html">website</a> for proposed rates.</p>
+				<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank">website</a> for proposed rates.</p>
 				<p>
 					<label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
 					<input
@@ -235,10 +235,10 @@ var App = React.createClass({
 
 				<h2>Resources</h2>
 				<ul>
-					<li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt">Lease Options in a Rent-Stabilized Apt</a></li>
-					<li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
-					<li><a href="https://amirentstabilized.com/">Am I Rent-Stabilized?</a></li>
-					<li><a href="http://www.nycrgb.org/">NYC Rent Guidelines Board</a></li>
+					<li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank">Lease Options in a Rent-Stabilized Apt</a></li>
+					<li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
+					<li><a href="https://amirentstabilized.com/" target="_blank">Am I Rent-Stabilized?</a></li>
+					<li><a href="http://www.nycrgb.org/" target="_blank">NYC Rent Guidelines Board</a></li>
 				</ul>
 			</div>
 		);

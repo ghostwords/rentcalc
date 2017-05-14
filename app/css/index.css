@@ -15,6 +15,15 @@ body {
 	max-width: 600px;
 }
 
+a, a:visited {
+	color: #0074d9;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
 h1 {
 	font-size: 26px;
 }

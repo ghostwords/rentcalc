@@ -19,25 +19,16 @@ function number_format(num, decimals) {
 }
 
 var RGB_DATA = {
-	// http://www.nycrgb.org/html/guidelines/orders/order46.html
-	2015: {
-		'one': 1,
-		'two': 2.75
-	},
-	// http://www.nycrgb.org/html/guidelines/orders/order47.html
-	2016: {
-		'one': 0,
-		'two': 2
-	},
-	2017: {
-		'one': 0,
-		'two': 2
-	},
+	2015: { one: 1, two: 2.75 },
+	2016: { one: 0, two: 2 },
+	2017: { one: 0, two: 2 },
 };
 
 var App = React.createClass({
 	getInitialState: function () {
 		return {
+			rateOne: null,
+			rateTwo: null,
 			rent: '2000.00'
 		};
 	},
@@ -50,32 +41,82 @@ var App = React.createClass({
 
 	handleButton: function () {
 		this.setState({
-			'rent': document.getElementById('rent').value
+			rent: document.getElementById('rent').value
 		});
 	},
 
-	render: function () {
-		var year = (new Date()).getFullYear();
+	showRateInputs: function () {
+		this.setState({
+			rateOne: 0,
+			rateTwo: 0
+		});
+		return false;
+	},
 
-		if (!RGB_DATA.hasOwnProperty(year) || !RGB_DATA.hasOwnProperty(year + 1)) {
+	render: function () {
+		var provisional_msg,
+			year = (new Date()).getFullYear();
+
+		if (!RGB_DATA.hasOwnProperty(year)) {
 			return (
-				<div>
-					Sorry, we don't have NYC Rent Guidelines Board apartment lease renewal rates for {year} and {year+1}.
+				<div className="notice">
+					<p>Oops, we don't have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
+					<p>Looks like this app is way out of date.</p>
 				</div>
 			);
 		}
 
+		if (!RGB_DATA.hasOwnProperty(year + 1)) {
+			var provisional_msg = (<div className="notice">
+				<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html">website</a> for proposed rates.</p>
+				<p>
+					<label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
+					<input
+						type="number"
+						min="0"
+						max="100"
+						step="0.1"
+						id="rateOne"
+						name="rateOne"
+						value={this.state.rateOne}
+						onChange={this.handleChange}
+						autoComplete="off" />%
+				</p>
+				<p>
+					<label htmlFor="rateTwo">Two-year renewal lease adjustment for {year + 1}:</label>
+					<input
+						type="number"
+						min="0"
+						max="100"
+						step="0.1"
+						id="rateTwo"
+						name="rateTwo"
+						value={this.state.rateTwo}
+						onChange={this.handleChange}
+						autoComplete="off" />%
+				</p>
+			</div>);
+
+			if (this.state.rateOne === null || this.state.rateTwo === null) {
+				return provisional_msg;
+			}
+		}
+
 		var rent = parseFloat(this.state.rent) || 0,
-			this_one_pct = rent / 100,
-			this_year_one = this_one_pct * RGB_DATA[year].one + rent,
-			this_year_two = this_one_pct * RGB_DATA[year].two + rent,
-			next_one_pct = this_year_one / 100,
-			next_year_one = next_one_pct * RGB_DATA[year + 1].one + this_year_one,
-			next_year_two = next_one_pct * RGB_DATA[year + 1].two + this_year_one,
+			rent_1y = rent / 100 * RGB_DATA[year].one + rent,
+			rent_2y = rent / 100 * RGB_DATA[year].two + rent;
+
+		var next_one_year_rate = this.state.rateOne === null ?
+			RGB_DATA[year + 1].one : this.state.rateOne;
+		var next_two_year_rate = this.state.rateTwo === null ?
+			RGB_DATA[year + 1].two : this.state.rateTwo;
+
+		var rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,
+			rent_1y_2y = rent_1y / 100 * next_two_year_rate + rent_1y,
 			totals = [
-				this_year_one * 12 + next_year_one * 12,
-				this_year_one * 12 + next_year_two * 12,
-				this_year_two * 12 + this_year_two * 12
+				rent_1y * 12 + rent_1y_1y * 12,
+				rent_1y * 12 + rent_1y_2y * 12,
+				rent_2y * 12 + rent_2y * 12
 			],
 			totals_min = Math.min(...totals),
 			totals_max = Math.max(...totals),
@@ -86,6 +127,8 @@ var App = React.createClass({
 
 		return (
 			<div>
+				{provisional_msg}
+
 				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
 				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal on September 1st, this calculator can help pick the lease duration.
 				<hr />
@@ -102,7 +145,7 @@ var App = React.createClass({
 
 				<input
 					type="button"
-					id ="update-button"
+					id="update-button"
 					value="Update"
 					onClick={this.handleButton}
 					style={{
@@ -116,15 +159,15 @@ var App = React.createClass({
 					<tr>
 						<th scope="row">first year</th>
 						<td>
-							${number_format(this_year_one * 12)}
-							<div className="monthly-rent">${number_format(this_year_one)} / mo</div>
+							${number_format(rent_1y * 12)}
+							<div className="monthly-rent">${number_format(rent_1y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">next year</th>
 						<td>
-							${number_format(next_year_one * 12)}
-							<div className="monthly-rent">${number_format(next_year_one)} / mo</div>
+							${number_format(rent_1y_1y * 12)}
+							<div className="monthly-rent">${number_format(rent_1y_1y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
@@ -141,15 +184,15 @@ var App = React.createClass({
 					<tr>
 						<th scope="row">first year</th>
 						<td>
-							${number_format(this_year_one * 12)}
-							<div className="monthly-rent">${number_format(this_year_one)} / mo</div>
+							${number_format(rent_1y * 12)}
+							<div className="monthly-rent">${number_format(rent_1y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">next year</th>
 						<td>
-							${number_format(next_year_two * 12)}
-							<div className="monthly-rent">${number_format(next_year_two)} / mo</div>
+							${number_format(rent_1y_2y * 12)}
+							<div className="monthly-rent">${number_format(rent_1y_2y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
@@ -166,15 +209,15 @@ var App = React.createClass({
 					<tr>
 						<th scope="row">first year</th>
 						<td>
-							${number_format(this_year_two * 12)}
-							<div className="monthly-rent">${number_format(this_year_two)} / mo</div>
+							${number_format(rent_2y * 12)}
+							<div className="monthly-rent">${number_format(rent_2y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">next year</th>
 						<td>
-							${number_format(this_year_two * 12)}
-							<div className="monthly-rent">${number_format(this_year_two)} / mo</div>
+							${number_format(rent_2y * 12)}
+							<div className="monthly-rent">${number_format(rent_2y)} / mo</div>
 						</td>
 					</tr>
 					<tr>
@@ -186,7 +229,7 @@ var App = React.createClass({
 					</tr>
 				</table>
 
-				You will save ${number_format(totals_max - totals_min)} over two years by going with the cheapest option.
+				You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with the cheapest option.
 
 				<hr />
 

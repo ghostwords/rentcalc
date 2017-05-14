@@ -4,6 +4,12 @@ body {
 	margin: 20px;
 }
 
+.notice {
+	border: 1px solid #ccc;
+	background-color: #ffffcc;
+	padding: 15px;
+}
+
 #content {
 	margin: auto;
 	max-width: 600px;
@@ -44,6 +50,18 @@ input::-webkit-inner-spin-button {
 label {
 	display: block;
 	margin-bottom: 10px;
+}
+
+p {
+	margin: 0;
+}
+
+p + p {
+	margin-top: 20px;
+}
+
+p + div {
+	margin-top: 20px;
 }
 
 table {

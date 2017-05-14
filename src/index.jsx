@@ -54,8 +54,7 @@ var App = React.createClass({
 	},
 
 	render: function () {
-		var provisional_msg,
-			year = (new Date()).getFullYear();
+		var year = (new Date()).getFullYear();
 
 		if (!RGB_DATA.hasOwnProperty(year)) {
 			return (
@@ -66,8 +65,8 @@ var App = React.createClass({
 			);
 		}
 
-		if (!RGB_DATA.hasOwnProperty(year + 1)) {
-			var provisional_msg = (<div className="notice">
+		if (!RGB_DATA.hasOwnProperty(year + 1) && (this.state.rateOne === null || this.state.rateTwo === null)) {
+			return (<div className="notice">
 				<p>We don't have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank">website</a> for proposed rates.</p>
 				<p>
 					<label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
@@ -96,10 +95,6 @@ var App = React.createClass({
 						autoComplete="off" />%
 				</p>
 			</div>);
-
-			if (this.state.rateOne === null || this.state.rateTwo === null) {
-				return provisional_msg;
-			}
 		}
 
 		var rent = parseFloat(this.state.rent) || 0,
@@ -260,8 +255,6 @@ var App = React.createClass({
 
 		return (
 			<div>
-				{provisional_msg}
-
 				<h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
 				If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
 				<hr />

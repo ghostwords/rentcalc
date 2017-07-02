@@ -1,15 +1,15 @@
 {
   "name": "NYCRentCalculator",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "NYC Rent-Stabilized Apartment Lease Renewal Calculator",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production browserify src/index.jsx -o app/build/bundle.js -t babelify -t envify -g uglifyify",
-    "lint": "eslint src/*",
-    "serve": "cd app && live-server --port=9966",
+    "build": "NODE_ENV=production browserify src/index.jsx -o app/build/bundle.js -t [ babelify --presets [ es2015 react ] ] -t envify -g uglifyify",
+    "lint": "eslint src/* || true",
+    "serve": "cd app && live-server --port=0 --no-browser",
     "start": "npm run watch & npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --watch src -e js,jsx --exec \"browserify src/index.jsx -o app/build/bundle.js -d -v -t babelify\""
+    "watch": "nodemon --watch src -e js,jsx --exec \"browserify src/index.jsx -o app/build/bundle.js -d -v -t [ babelify --presets [ es2015 react ] ]\""
   },
   "repository": {
     "type": "git",
@@ -27,15 +27,18 @@
     "url": "https://github.com/ghostwords/NYCRentCalculator/issues"
   },
   "homepage": "https://github.com/ghostwords/NYCRentCalculator",
-  "dependencies": {
-    "babelify": "~6.1.2",
-    "browserify": "~10.2.6",
-    "envify": "~3.4.0",
-    "eslint": "~0.24.1",
-    "eslint-plugin-react": "~2.7.0",
-    "live-server": "~0.7.1",
-    "nodemon": "~1.3.7",
-    "react": "~0.13.3",
-    "uglifyify": "~3.0.1"
+  "devDependencies": {
+    "babel-preset-es2015": "~6.24.1",
+    "babel-preset-react": "~6.24.1",
+    "babelify": "~7.3.0",
+    "browserify": "~14.3.0",
+    "envify": "~4.0.0",
+    "eslint": "~3.19.0",
+    "eslint-plugin-react": "~7.0.1",
+    "live-server": "~1.2.0",
+    "nodemon": "~1.11.0",
+    "react": "~15.5.4",
+    "react-dom": "~15.5.4",
+    "uglifyify": "~3.0.4"
   }
 }

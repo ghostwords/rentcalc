@@ -145,9 +145,9 @@ class App extends React.Component {
       rent_1y = rent / 100 * RGB_DATA[year].one + rent,
       rent_2y = rent / 100 * RGB_DATA[year].two + rent;
 
-    var next_one_year_rate = this.state.rateOne === null ?
+    var next_one_year_rate = this.state.rateOne === "" ?
       RGB_DATA[year + 1].one : this.state.rateOne;
-    var next_two_year_rate = this.state.rateTwo === null ?
+    var next_two_year_rate = this.state.rateTwo === "" ?
       RGB_DATA[year + 1].two : this.state.rateTwo;
 
     var rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,

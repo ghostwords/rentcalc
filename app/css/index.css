@@ -103,6 +103,10 @@ td {
 	width: 100%;
 }
 
+footer .credits {
+	font-size: small;
+}
+
 .min-total {
 	background-color: lime;
 }

@@ -81,15 +81,20 @@ class App extends React.Component {
       If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
     </div>);
 
-    var footer = (<div>
+    var footer = (<footer>
       <h2>Resources</h2>
       <ul>
         <li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank" rel="noopener noreferrer">Lease Options in a Rent-Stabilized Apt</a></li>
         <li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank" rel="noopener noreferrer">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
         <li><a href="https://amirentstabilized.com/" target="_blank" rel="noopener noreferrer">Am I Rent-Stabilized?</a></li>
+        <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&apos;s rent history from NYS HCR</a></li>
         <li><a href="http://www.nycrgb.org/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
       </ul>
-    </div>);
+      <hr />
+      <div className="credits">
+        &copy; 2018 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
+      </div>
+    </footer>);
 
     var year = (new Date()).getFullYear();
 

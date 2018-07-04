@@ -24,6 +24,7 @@ var RGB_DATA = {
   2016: { one: 0, two: 2 },
   2017: { one: 0, two: 2 },
   2018: { one: 1.25, two: 2 },
+  2019: { one: 1.5, two: 2.5 }, // order #50
 };
 
 class App extends React.Component {

@@ -20,10 +20,15 @@ function number_format(num, decimals) {
 }
 
 var RGB_DATA = {
-  2015: { one: 1, two: 2.75 },
-  2016: { one: 0, two: 2 },
-  2017: { one: 0, two: 2 },
-  2018: { one: 1.25, two: 2 },
+  2011: { one: 2.25, two: 4.5 },
+  2012: { one: 3.75, two: 7.25 },
+  2013: { one: 2, two: 4 },
+  2014: { one: 4, two: 7.75 }, // order #45
+  2015: { one: 1, two: 2.75 }, // #46
+  2016: { one: 0, two: 2 }, // #47
+  2017: { one: 0, two: 2 }, // #48
+  2018: { one: 1.25, two: 2 }, // #49
+  2019: { one: 1.5, two: 2.5 }, // #50
 };
 
 class App extends React.Component {

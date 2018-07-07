@@ -38,9 +38,10 @@ class App extends React.Component {
     this.state = {
       rateOne: "",
       rateTwo: "",
-      rent: '2000.00',
+      rent: null,
       showDetails: false,
       useProposedRates: false,
+      year: (new Date()).getFullYear(),
     };
   }
 
@@ -76,10 +77,21 @@ class App extends React.Component {
   }
 
   render() {
-    var header = (<div>
+    const year = +this.state.year;
+
+    let years = [];
+    Object.keys(RGB_DATA).reverse().forEach(i => {
+      years.push(<option key={i} value={i}>{i}</option>);
+    });
+
+    var header = (<header>
       <h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
-      If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
-    </div>);
+      If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal in <select
+        id="year"
+        name="year"
+        onChange={this.handleChange.bind(this)}
+        value={year}>{years}</select> around September 1st, this calculator can help pick the lease duration.
+    </header>);
 
     var footer = (<footer>
       <h2>Resources</h2>
@@ -95,8 +107,6 @@ class App extends React.Component {
         &copy; 2018 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
       </div>
     </footer>);
-
-    var year = (new Date()).getFullYear();
 
     if (!RGB_DATA.hasOwnProperty(year)) {
       return (<div>
@@ -170,36 +180,38 @@ class App extends React.Component {
       ],
       totals_min = Math.min(...totals),
       totals_max = Math.max(...totals),
+      totals_classes = {};
+
+    if (totals_max - totals_min) {
       totals_classes = {
         [totals_min]: 'min-total',
         [totals_max]: 'max-total'
       };
-
-    var rent_input;
-    if (totals_max - totals_min || this.state.showDetails) {
-      rent_input = (<div id="rent-div">
-        <label htmlFor="rent">Enter your current rent:</label>
-        $ <input
-          type="number"
-          step="0.01"
-          id="rent"
-          name="rent"
-          value={this.state.rent}
-          onChange={this.handleChange.bind(this)}
-          autoComplete="off" /> / mo
-
-        <input
-          type="button"
-          id="update-button"
-          value="Update"
-          onClick={this.handleButton.bind(this)}
-          style={{
-            float: "right"
-          }}/>
-
-        <hr />
-      </div>);
     }
+
+    const rent_input = (<div id="rent-div">
+      <label htmlFor="rent">Enter your current rent:</label>
+      $ <input
+        type="number"
+        step="0.01"
+        id="rent"
+        name="rent"
+        value={this.state.rent}
+        onChange={this.handleChange.bind(this)}
+        autoComplete="off"
+        autoFocus="autofocus" /> / mo
+
+      <input
+        type="button"
+        id="update-button"
+        value="Update"
+        onClick={this.handleButton.bind(this)}
+        style={{
+          float: "right"
+        }} />
+
+      <hr />
+    </div>);
 
     var summary;
     if (totals_max - totals_min) {
@@ -221,7 +233,7 @@ class App extends React.Component {
           You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with a {cheapest_option}.
         </p>
       );
-    } else if (!this.state.showDetails) {
+    } else if (rent > 0 && !this.state.showDetails) {
       summary = (
         <p>
           All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&apos;t matter which one you pick.
@@ -229,9 +241,13 @@ class App extends React.Component {
       );
     }
 
-    var details = (
-      <p><a href="/" onClick={this.showDetails.bind(this)}>Show me the details.</a></p>
-    );
+    let details;
+    if (rent > 0) {
+      details = (<div>
+        <a href="/" onClick={this.showDetails.bind(this)}>Show me the details.</a>
+        <hr />
+      </div>);
+    }
 
     if (this.state.showDetails) {
       details = (<div>
@@ -315,6 +331,8 @@ class App extends React.Component {
             </tr>
           </tbody>
         </table>
+
+        <hr />
       </div>);
     }
 
@@ -329,8 +347,6 @@ class App extends React.Component {
         {summary}
 
         {details}
-
-        <hr />
 
         {footer}
       </div>

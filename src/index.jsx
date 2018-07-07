@@ -170,10 +170,14 @@ class App extends React.Component {
       ],
       totals_min = Math.min(...totals),
       totals_max = Math.max(...totals),
+      totals_classes = {};
+
+    if (totals_max - totals_min) {
       totals_classes = {
         [totals_min]: 'min-total',
         [totals_max]: 'max-total'
       };
+    }
 
     const rent_input = (<div id="rent-div">
       <label htmlFor="rent">Enter your current rent:</label>

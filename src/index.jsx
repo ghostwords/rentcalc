@@ -38,7 +38,7 @@ class App extends React.Component {
     this.state = {
       rateOne: "",
       rateTwo: "",
-      rent: '2000.00',
+      rent: null,
       showDetails: false,
       useProposedRates: false,
     };
@@ -175,31 +175,29 @@ class App extends React.Component {
         [totals_max]: 'max-total'
       };
 
-    var rent_input;
-    if (totals_max - totals_min || this.state.showDetails) {
-      rent_input = (<div id="rent-div">
-        <label htmlFor="rent">Enter your current rent:</label>
-        $ <input
-          type="number"
-          step="0.01"
-          id="rent"
-          name="rent"
-          value={this.state.rent}
-          onChange={this.handleChange.bind(this)}
-          autoComplete="off" /> / mo
+    const rent_input = (<div id="rent-div">
+      <label htmlFor="rent">Enter your current rent:</label>
+      $ <input
+        type="number"
+        step="0.01"
+        id="rent"
+        name="rent"
+        value={this.state.rent}
+        onChange={this.handleChange.bind(this)}
+        autoComplete="off"
+        autoFocus="autofocus" /> / mo
 
-        <input
-          type="button"
-          id="update-button"
-          value="Update"
-          onClick={this.handleButton.bind(this)}
-          style={{
-            float: "right"
-          }}/>
+      <input
+        type="button"
+        id="update-button"
+        value="Update"
+        onClick={this.handleButton.bind(this)}
+        style={{
+          float: "right"
+        }} />
 
-        <hr />
-      </div>);
-    }
+      <hr />
+    </div>);
 
     var summary;
     if (totals_max - totals_min) {
@@ -221,7 +219,7 @@ class App extends React.Component {
           You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with a {cheapest_option}.
         </p>
       );
-    } else if (!this.state.showDetails) {
+    } else if (rent > 0 && !this.state.showDetails) {
       summary = (
         <p>
           All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&apos;t matter which one you pick.
@@ -229,9 +227,13 @@ class App extends React.Component {
       );
     }
 
-    var details = (
-      <p><a href="/" onClick={this.showDetails.bind(this)}>Show me the details.</a></p>
-    );
+    let details;
+    if (rent > 0) {
+      details = (<div>
+        <a href="/" onClick={this.showDetails.bind(this)}>Show me the details.</a>
+        <hr />
+      </div>);
+    }
 
     if (this.state.showDetails) {
       details = (<div>
@@ -315,6 +317,8 @@ class App extends React.Component {
             </tr>
           </tbody>
         </table>
+
+        <hr />
       </div>);
     }
 
@@ -329,8 +333,6 @@ class App extends React.Component {
         {summary}
 
         {details}
-
-        <hr />
 
         {footer}
       </div>

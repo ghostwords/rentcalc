@@ -7,7 +7,6 @@ You can see the calculator [here](https://ghostwords.github.io/NYCRentCalculator
 
 ## Bugs
 
-- Editing rent can result in a rent == 0 which immediately displays the "all options are the same message"
 - Clicking estimated rates button first results in instant submit as soon as values are entered for both inputs
 - Estimated rates button needs styling
 - Back button should take you back to estimated rates screen

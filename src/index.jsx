@@ -41,6 +41,7 @@ class App extends React.Component {
       rent: null,
       showDetails: false,
       useProposedRates: false,
+      year: (new Date()).getFullYear(),
     };
   }
 
@@ -76,10 +77,21 @@ class App extends React.Component {
   }
 
   render() {
-    var header = (<div>
+    const year = +this.state.year;
+
+    let years = [];
+    Object.keys(RGB_DATA).reverse().forEach(i => {
+      years.push(<option key={i} value={i}>{i}</option>);
+    });
+
+    var header = (<header>
       <h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
-      If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal around September 1st, this calculator can help pick the lease duration.
-    </div>);
+      If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal in <select
+        id="year"
+        name="year"
+        onChange={this.handleChange.bind(this)}
+        value={year}>{years}</select> around September 1st, this calculator can help pick the lease duration.
+    </header>);
 
     var footer = (<footer>
       <h2>Resources</h2>
@@ -95,8 +107,6 @@ class App extends React.Component {
         &copy; 2018 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
       </div>
     </footer>);
-
-    var year = (new Date()).getFullYear();
 
     if (!RGB_DATA.hasOwnProperty(year)) {
       return (<div>

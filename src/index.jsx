@@ -179,13 +179,13 @@ class App extends React.Component {
         rent_2y * 12 + rent_2y * 12
       ],
       totals_min = Math.min(...totals),
-      totals_max = Math.max(...totals),
+      totals_max = Math.max(Math.min(totals[0], totals[1]), totals[2]),
       totals_classes = {};
 
     if (totals_max - totals_min) {
       totals_classes = {
         [totals_min]: 'min-total',
-        [totals_max]: 'max-total'
+        //[totals_max]: 'max-total'
       };
     }
 
@@ -216,21 +216,15 @@ class App extends React.Component {
     var summary;
     if (totals_max - totals_min) {
       var cheapest_option;
-      if (totals[0] == totals_min) {
-        cheapest_option = (<span>
-          <b>one year</b> renewal followed by another <b>one year</b> renewal
-        </span>);
-      } else if (totals[1] == totals_min) {
-        cheapest_option = (<span>
-          <b>one year</b> renewal followed by a <b>two year</b> renewal
-        </span>);
-      } else if (totals[2] == totals_min) {
-        cheapest_option = <span><b>two year</b> renewal</span>;
+      if (totals[0] == totals_min || totals[1] == totals_min) {
+        cheapest_option = <b>one year</b>;
+      } if (totals[2] == totals_min) {
+        cheapest_option =<b>two year</b>;
       }
 
       summary = (
         <p>
-          You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with a {cheapest_option}.
+          You will save <b>${number_format(totals_max - totals_min)}</b> over two years by going with a {cheapest_option} renewal.
         </p>
       );
     } else if (rent > 0 && !this.state.showDetails) {

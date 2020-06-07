@@ -86,7 +86,7 @@ class App extends React.Component {
     });
 
     var header = (<header>
-      <h1>NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
+      <h1>&#127968; NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
       If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal in <select
         id="year"
         name="year"
@@ -109,7 +109,7 @@ class App extends React.Component {
       </div>
     </footer>);
 
-    if (!RGB_DATA.hasOwnProperty(year)) {
+    if (!(year in RGB_DATA)) {
       return (<div>
         {header}
         <div className="notice">
@@ -120,7 +120,7 @@ class App extends React.Component {
       </div>);
     }
 
-    if (!RGB_DATA.hasOwnProperty(year + 1) && !this.state.useProposedRates) {
+    if (!((year + 1) in RGB_DATA) && !this.state.useProposedRates) {
       return (<div>
         {header}
         <div className="notice">
@@ -156,6 +156,7 @@ class App extends React.Component {
               type="button"
               id="use-proposed-rates-button"
               value="Use proposed rates"
+              disabled={!this.state.rateOne || !this.state.rateTwo}
               onClick={this.useProposedRates.bind(this)} />
           </p>
         </div>
@@ -265,7 +266,7 @@ class App extends React.Component {
             </tr>
             <tr>
               <th scope="row">total</th>
-              <td className={totals_classes.hasOwnProperty(totals[0]) && totals_classes[totals[0]]}>
+              <td className={totals[0] in totals_classes && totals_classes[totals[0]]}>
                 ${number_format(totals[0])}
                 <div className="monthly-rent">${number_format(totals[0] / 24)} / mo</div>
               </td>
@@ -292,7 +293,7 @@ class App extends React.Component {
             </tr>
             <tr>
               <th scope="row">total</th>
-              <td className={totals_classes.hasOwnProperty(totals[1]) && totals_classes[totals[1]]}>
+              <td className={totals[1] in totals_classes && totals_classes[totals[1]]}>
                 ${number_format(totals[1])}
                 <div className="monthly-rent">${number_format(totals[1] / 24)} / mo</div>
               </td>
@@ -319,7 +320,7 @@ class App extends React.Component {
             </tr>
             <tr>
               <th scope="row">total</th>
-              <td className={totals_classes.hasOwnProperty(totals[2]) && totals_classes[totals[2]]}>
+              <td className={totals[2] in totals_classes && totals_classes[totals[2]]}>
                 ${number_format(totals[2])}
                 <div className="monthly-rent">${number_format(totals[2] / 24)} / mo</div>
               </td>

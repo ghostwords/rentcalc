@@ -7,18 +7,17 @@ You can see the calculator [here](https://ghostwords.github.io/NYCRentCalculator
 
 ## Bugs
 
-- Clicking estimated rates button first results in instant submit as soon as values are entered for both inputs
 - Estimated rates button needs styling
-- Back button should take you back to estimated rates screen
+- Back button should work (take you back to estimated rates screen, back to showing less information, ...)
 
 
 ## TODOs
 
+- Better live coding setup! This one takes forever to reload.
 - Builds are not (no longer?) idempotent
 - Review [eslint-plugin-react rules](https://github.com/yannickcr/eslint-plugin-react#list-of-supported-rules)
-- Better live coding setup! This one takes forever to reload.
 - Review Babel features
-- Review React changelog
+- Review React changelog, refactor into components
 
 
 ## Code license

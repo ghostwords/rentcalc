@@ -1,7 +1,7 @@
 /*!
  * NYCRentCalculator
  *
- * Copyright 2017 ghostwords.
+ * Copyright 2020 ghostwords.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -29,6 +29,7 @@ var RGB_DATA = {
   2017: { one: 0, two: 2 }, // #48
   2018: { one: 1.25, two: 2 }, // #49
   2019: { one: 1.5, two: 2.5 }, // #50
+  2020: { one: 1.5, two: 2.5 }, // #51
 };
 
 class App extends React.Component {
@@ -104,7 +105,7 @@ class App extends React.Component {
       </ul>
       <hr />
       <div className="credits">
-        &copy; 2018 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
+        &copy; 2020 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
       </div>
     </footer>);
 

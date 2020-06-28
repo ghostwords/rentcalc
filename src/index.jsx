@@ -105,7 +105,7 @@ class App extends React.Component {
       </ul>
       <hr />
       <div className="credits">
-        &copy; 2020 ghostwords / <a href="https://github.com/ghostwords/NYCRentCalculator" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
+        &copy; 2020 ghostwords / <a href="https://github.com/ghostwords/rentcalc" target="_blank" rel="noopener noreferrer">source code on GitHub</a>
       </div>
     </footer>);
 

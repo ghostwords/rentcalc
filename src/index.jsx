@@ -9,8 +9,8 @@
  *
  */
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+let React = require('react');
+let ReactDOM = require('react-dom');
 
 function number_format(num, decimals) {
   if (decimals === undefined) {
@@ -19,7 +19,7 @@ function number_format(num, decimals) {
   return parseFloat(num).toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-var RGB_DATA = {
+let RGB_DATA = {
   2011: { one: 2.25, two: 4.5 },
   2012: { one: 3.75, two: 7.25 },
   2013: { one: 2, two: 4 },
@@ -70,7 +70,7 @@ class App extends React.Component {
       useProposedRates: true
     });
     setTimeout(function () {
-      var rate_input = document.getElementById("rent-div");
+      let rate_input = document.getElementById("rent-div");
       if (rate_input) {
         window.scroll(0, window.pageYOffset + rate_input.getBoundingClientRect().top);
       }
@@ -85,7 +85,7 @@ class App extends React.Component {
       years.push(<option key={i} value={i}>{i}</option>);
     });
 
-    var header = (<header>
+    let header = (<header>
       <h1>&#127968; NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
       If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal in <select
         id="year"
@@ -94,7 +94,7 @@ class App extends React.Component {
         value={year}>{years}</select> around September 1st, this calculator can help pick the lease duration.
     </header>);
 
-    var footer = (<footer>
+    let footer = (<footer>
       <h2>Resources</h2>
       <ul>
         <li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank" rel="noopener noreferrer">Lease Options in a Rent-Stabilized Apt</a></li>
@@ -164,16 +164,16 @@ class App extends React.Component {
       </div>);
     }
 
-    var rent = parseFloat(this.state.rent) || 0,
+    let rent = parseFloat(this.state.rent) || 0,
       rent_1y = rent / 100 * RGB_DATA[year].one + rent,
       rent_2y = rent / 100 * RGB_DATA[year].two + rent;
 
-    var next_one_year_rate = this.state.rateOne === "" ?
+    let next_one_year_rate = this.state.rateOne === "" ?
       RGB_DATA[year + 1].one : this.state.rateOne;
-    var next_two_year_rate = this.state.rateTwo === "" ?
+    let next_two_year_rate = this.state.rateTwo === "" ?
       RGB_DATA[year + 1].two : this.state.rateTwo;
 
-    var rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,
+    let rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,
       rent_1y_2y = rent_1y / 100 * next_two_year_rate + rent_1y,
       totals = [
         rent_1y * 12 + rent_1y_1y * 12,
@@ -215,9 +215,9 @@ class App extends React.Component {
       <hr />
     </div>);
 
-    var summary;
+    let summary;
     if (totals_max - totals_min) {
-      var cheapest_option;
+      let cheapest_option;
       if (totals[0] == totals_min || totals[1] == totals_min) {
         cheapest_option = <b>one year</b>;
       } if (totals[2] == totals_min) {

@@ -100,7 +100,7 @@ class App extends React.Component {
         <li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank" rel="noopener noreferrer">Lease Options in a Rent-Stabilized Apt</a></li>
         <li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank" rel="noopener noreferrer">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
         <li><a href="https://amirentstabilized.com/" target="_blank" rel="noopener noreferrer">Am I Rent-Stabilized?</a></li>
-        <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&apos;s rent history from NYS HCR</a></li>
+        <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&rsquo;s rent history from NYS HCR</a></li>
         <li><a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
       </ul>
       <hr />
@@ -113,7 +113,7 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>Oops, we don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
+          <p>Oops, we don&rsquo;t have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
           <p>Looks like this app is way out of date.</p>
         </div>
         {footer}
@@ -124,7 +124,7 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>We don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
+          <p>We don&rsquo;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
           <p>
             <label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
             <input
@@ -232,7 +232,7 @@ class App extends React.Component {
     } else if (rent > 0 && !this.state.showDetails) {
       summary = (
         <p>
-          All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&apos;t matter which one you pick.
+          All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&rsquo;t matter which one you pick.
         </p>
       );
     }

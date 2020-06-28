@@ -124,7 +124,8 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>We don&rsquo;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
+          <p>We don&rsquo;t yet have apartment lease renewal rates for {year+1}.</p>
+          <p>You could check the <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board website</a> for proposed rates.</p>
           <p>
             <label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
             <input

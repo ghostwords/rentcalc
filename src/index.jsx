@@ -9,8 +9,8 @@
  *
  */
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+let React = require('react');
+let ReactDOM = require('react-dom');
 
 function number_format(num, decimals) {
   if (decimals === undefined) {
@@ -19,7 +19,7 @@ function number_format(num, decimals) {
   return parseFloat(num).toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-var RGB_DATA = {
+let RGB_DATA = {
   2011: { one: 2.25, two: 4.5 },
   2012: { one: 3.75, two: 7.25 },
   2013: { one: 2, two: 4 },
@@ -39,7 +39,7 @@ class App extends React.Component {
     this.state = {
       rateOne: "",
       rateTwo: "",
-      rent: null,
+      rent: "",
       showDetails: false,
       useProposedRates: false,
       year: (new Date()).getFullYear(),
@@ -70,7 +70,7 @@ class App extends React.Component {
       useProposedRates: true
     });
     setTimeout(function () {
-      var rate_input = document.getElementById("rent-div");
+      let rate_input = document.getElementById("rent-div");
       if (rate_input) {
         window.scroll(0, window.pageYOffset + rate_input.getBoundingClientRect().top);
       }
@@ -85,7 +85,7 @@ class App extends React.Component {
       years.push(<option key={i} value={i}>{i}</option>);
     });
 
-    var header = (<header>
+    let header = (<header>
       <h1>&#127968; NYC Rent-Stabilized Apartment<br />Lease Renewal Calculator</h1>
       If you live in a rent-stabilized apartment in New York City, and your lease is up for renewal in <select
         id="year"
@@ -94,14 +94,14 @@ class App extends React.Component {
         value={year}>{years}</select> around September 1st, this calculator can help pick the lease duration.
     </header>);
 
-    var footer = (<footer>
+    let footer = (<footer>
       <h2>Resources</h2>
       <ul>
         <li><a href="http://streeteasy.com/talk/discussion/27124-lease-options-in-a-rent-stabilized-apt" target="_blank" rel="noopener noreferrer">Lease Options in a Rent-Stabilized Apt</a></li>
         <li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank" rel="noopener noreferrer">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
         <li><a href="https://amirentstabilized.com/" target="_blank" rel="noopener noreferrer">Am I Rent-Stabilized?</a></li>
-        <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&apos;s rent history from NYS HCR</a></li>
-        <li><a href="http://www.nycrgb.org/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
+        <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&rsquo;s rent history from NYS HCR</a></li>
+        <li><a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
       </ul>
       <hr />
       <div className="credits">
@@ -113,7 +113,7 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>Oops, we don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
+          <p>Oops, we don&rsquo;t have NYC Rent Guidelines Board apartment lease renewal rates for {year}.</p>
           <p>Looks like this app is way out of date.</p>
         </div>
         {footer}
@@ -124,7 +124,8 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>We don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
+          <p>We don&rsquo;t yet have apartment lease renewal rates for {year+1}.</p>
+          <p>You could check the <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board website</a> for proposed rates.</p>
           <p>
             <label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
             <input
@@ -164,16 +165,16 @@ class App extends React.Component {
       </div>);
     }
 
-    var rent = parseFloat(this.state.rent) || 0,
+    let rent = parseFloat(this.state.rent) || 0,
       rent_1y = rent / 100 * RGB_DATA[year].one + rent,
       rent_2y = rent / 100 * RGB_DATA[year].two + rent;
 
-    var next_one_year_rate = this.state.rateOne === "" ?
+    let next_one_year_rate = this.state.rateOne === "" ?
       RGB_DATA[year + 1].one : this.state.rateOne;
-    var next_two_year_rate = this.state.rateTwo === "" ?
+    let next_two_year_rate = this.state.rateTwo === "" ?
       RGB_DATA[year + 1].two : this.state.rateTwo;
 
-    var rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,
+    let rent_1y_1y = rent_1y / 100 * next_one_year_rate + rent_1y,
       rent_1y_2y = rent_1y / 100 * next_two_year_rate + rent_1y,
       totals = [
         rent_1y * 12 + rent_1y_1y * 12,
@@ -215,9 +216,9 @@ class App extends React.Component {
       <hr />
     </div>);
 
-    var summary;
+    let summary;
     if (totals_max - totals_min) {
-      var cheapest_option;
+      let cheapest_option;
       if (totals[0] == totals_min || totals[1] == totals_min) {
         cheapest_option = <b>one year</b>;
       } if (totals[2] == totals_min) {
@@ -232,7 +233,7 @@ class App extends React.Component {
     } else if (rent > 0 && !this.state.showDetails) {
       summary = (
         <p>
-          All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&apos;t matter which one you pick.
+          All your lease options work out to the same amount given {year} and {year + 1} rent adjustment rates. Moneywise, it doesn&rsquo;t matter which one you pick.
         </p>
       );
     }

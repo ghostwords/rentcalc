@@ -25,3 +25,6 @@ rules:
     - warn
     - builtinGlobals: false
   semi: error
+settings:
+  react:
+    version: detect

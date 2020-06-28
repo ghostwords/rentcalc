@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production browserify src/index.jsx -o app/build/bundle.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -t envify -g uglifyify",
+    "deploy": "git stash && npm run build && git commit app/build/bundle.js -m 'Update build' && git push && git checkout gh-pages && git merge master --no-edit && git push && git checkout - && git stash pop && echo 'All done!'",
     "lint": "eslint src/* || true",
     "serve": "cd app && live-server --port=0 --no-browser",
     "start": "npm run watch & npm run serve",

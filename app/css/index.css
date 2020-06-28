@@ -40,7 +40,7 @@ hr {
 	margin: 20px 0;
 }
 
-input {
+input, select {
 	font: normal 20px 'Helvetica Neue', 'Helvetica', sans-serif;
 	padding: 5px;
 }
@@ -55,6 +55,11 @@ input[type=number] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
+}
+
+select {
+	background-color: #fff;
+	border: 2px solid #ccc;
 }
 
 label {

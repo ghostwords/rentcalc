@@ -101,7 +101,7 @@ class App extends React.Component {
         <li><a href="http://www.lesliebeslie.com/2012/12/17/lets-talk-about-lease-renewal-rent-stabilization/" target="_blank" rel="noopener noreferrer">Let’s Talk About Lease Renewal &amp; Rent Stabilization</a></li>
         <li><a href="https://amirentstabilized.com/" target="_blank" rel="noopener noreferrer">Am I Rent-Stabilized?</a></li>
         <li><a href="https://portal.hcr.ny.gov/app/ask" target="_blank" rel="noopener noreferrer">Request your apartment&apos;s rent history from NYS HCR</a></li>
-        <li><a href="http://www.nycrgb.org/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
+        <li><a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC Rent Guidelines Board</a></li>
       </ul>
       <hr />
       <div className="credits">
@@ -124,7 +124,7 @@ class App extends React.Component {
       return (<div>
         {header}
         <div className="notice">
-          <p>We don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="http://www.nycrgb.org/html/guidelines/apt.html" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
+          <p>We don&apos;t have NYC Rent Guidelines Board apartment lease renewal rates for {year+1}. You could check their <a href="https://rentguidelinesboard.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">website</a> for proposed rates.</p>
           <p>
             <label htmlFor="rateOne">One-year renewal lease adjustment for {year + 1}:</label>
             <input

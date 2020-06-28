@@ -39,7 +39,7 @@ class App extends React.Component {
     this.state = {
       rateOne: "",
       rateTwo: "",
-      rent: null,
+      rent: "",
       showDetails: false,
       useProposedRates: false,
       year: (new Date()).getFullYear(),
